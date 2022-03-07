@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Expenses from './components/Expenses/Expenses';
-import {expenses} from './Mock/Expenses';
+import NewExpense from './components/NewExpense/NewExpense';
+import {ExpensesArray} from './Mock/ExpensesArray';
 
-const App = () => { 
+const App = () => {
+  const [expenses, setExpenses] = useState(ExpensesArray);
+
+  function addExpenseHandler(expense){
+    setExpenses((prevExpenses) => {
+      return [expense, ...prevExpenses];
+    });
+  };
 
   return (
     <div>
-      <h2>Let's get started!</h2>
+      <NewExpense onAddExpense={addExpenseHandler} />
       <Expenses items={expenses} />
     </div>
   );
-}
+};
 
 export default App;
